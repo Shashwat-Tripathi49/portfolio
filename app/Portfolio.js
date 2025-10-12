@@ -30,13 +30,13 @@ export default function Portfolio() {
           </div>
           <div className="flex items-center gap-3 mt-3 sm:mt-0">
             <a
-              href="/Shashwat_Tripathi_CV.pdf"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-block px-4 py-2 bg-sky-600 text-white rounded-lg text-sm hover:scale-105 hover:bg-sky-700 transition-transform"
-            >
-              Download CV
-            </a>
+  href="/Shashwat_Tripathi_CV.pdf"
+  download="Shashwat_Tripathi_CV.pdf"
+  className="inline-block px-4 py-2 bg-sky-600 text-white rounded-lg text-sm hover:scale-105 hover:bg-sky-700 transition-transform"
+>
+  Download CV
+</a>
+
             <a
               href="https://www.linkedin.com/in/shashwat-tripathi-"
               target="_blank"
