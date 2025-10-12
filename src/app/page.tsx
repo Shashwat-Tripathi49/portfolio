@@ -4,7 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function Home(): JSX.Element {
+export default function Home() {
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
