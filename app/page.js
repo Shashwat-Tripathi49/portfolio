@@ -1,11 +1,10 @@
 import Image from "next/image";
-import Portfolio from "./Portfolio";
+import Portfolio from "./porfolio/page";
 
 export default function Home() {
   return (
     <>
-    okok
-    {/* <Portfolio /> */}
+    <Portfolio />
     </>
   );
 }
