@@ -17,6 +17,8 @@ export const metadata: Metadata = {
   description: "Portfolio of Shashwat Tripathi projects, skills, and experience in web development and design.",
 };
 
+// navneet
+
 export default function RootLayout({
   children,
 }: Readonly<{
