@@ -313,9 +313,9 @@ export default function Home() {
                 <h3 className="text-2xl font-semibold mb-4 text-blue-600">Let’s Connect</h3>
                 <p className="text-gray-700 mb-6 leading-relaxed">Open to collaborations, new opportunities, or even just a chat about technology and innovation. Feel free to reach out — I’d love to connect!</p>
                 <div className="space-y-4">
-                  <p className="flex items-center space-x-3"><span className="text-blue-600 text-lg">📧</span><a href="mailto:shashwat.tripathi@email.com" className="text-gray-700 hover:text-blue-600">shashwat.tripathi@email.com</a></p>
-                  <p className="flex items-center space-x-3"><span className="text-blue-600 text-lg">💼</span><a href="https://linkedin.com/in/shashwat-tripathi" target="_blank" rel="noreferrer" className="text-gray-700 hover:text-blue-600">LinkedIn Profile</a></p>
-                  <p className="flex items-center space-x-3"><span className="text-blue-600 text-lg">🐙</span><a href="https://github.com/shashwat-tripathi" target="_blank" rel="noreferrer" className="text-gray-700 hover:text-blue-600">GitHub Profile</a></p>
+                  <p className="flex items-center space-x-3"><span className="text-blue-600 text-lg">📧</span><a href="mailto:shashwatt49@gmail.com" className="text-gray-700 hover:text-blue-600">shashwatt49@gmail.com</a></p>
+                  <p className="flex items-center space-x-3"><span className="text-blue-600 text-lg">💼</span><a href="https://www.linkedin.com/in/shashwat-tripathi-41a8a9298" target="_blank" rel="noreferrer" className="text-gray-700 hover:text-blue-600">LinkedIn Profile</a></p>
+                  <p className="flex items-center space-x-3"><span className="text-blue-600 text-lg">🐙</span><a href="https://github.com/Shashwat-Tripathi49" target="_blank" rel="noreferrer" className="text-gray-700 hover:text-blue-600">GitHub Profile</a></p>
                 </div>
               </motion.div>
 
