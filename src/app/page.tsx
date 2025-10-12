@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, Transition, Variants } from 'framer-motion';
 
 export default function Home() {
 
@@ -26,15 +26,29 @@ export default function Home() {
     show: { opacity: 1, transition: { staggerChildren: 0.08 } },
   };
 
-  const fadeUp = {
-    hidden: { opacity: 0, y: 18 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
-  };
+  const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  show: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { 
+      duration: 0.6, 
+      ease: [0.25, 0.1, 0.25, 1] // cubic bezier equivalent to "easeOut"
+    } as Transition,
+  },
+};
 
-  const subtleFloat = {
-    hidden: { opacity: 0, y: 6 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.9, ease: 'easeOut' } },
-  };
+ const subtleFloat: Variants = {
+  hidden: { opacity: 0, y: 10 },
+  show: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { 
+      duration: 0.8, 
+      ease: [0.42, 0, 0.58, 1] // cubic-bezier equivalent to easeInOut
+    } as Transition,
+  },
+};
 
   // Static content (kept identical to your original text where possible)
   const skills = {
