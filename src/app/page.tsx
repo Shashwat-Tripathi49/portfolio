@@ -54,7 +54,7 @@ export default function Home() {
   const skills = {
     Frontend: ['React.js', 'Next.js', 'TypeScript', 'Tailwind CSS', 'HTML5 & CSS3'],
     Backend: ['Node.js', 'Express.js', 'Python', 'MongoDB', 'PostgreSQL'],
-    Blockchain: ['Solidity', 'Web3.js', 'Ethereum', 'Smart Contracts', 'DeFi Protocols'],
+    Blockchain: ['Solidity', 'Web3.js', 'Ethereum', 'Smart Contracts'],
     Tools: ['Git & GitHub', 'Docker', 'AWS', 'Vercel', 'Figma'],
   };
 
