@@ -1,347 +1,344 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { motion, AnimatePresence } from 'framer-motion';
 
-export default function Home() {
+export default function Home(): JSX.Element {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  useEffect(() => {
+    const onResize = () => setIsMenuOpen(false);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) element.scrollIntoView({ behavior: 'smooth' });
+    const el = document.getElementById(sectionId);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     setIsMenuOpen(false);
   };
 
+  // Motion variants
+  const container = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { staggerChildren: 0.08 } },
+  };
+
+  const fadeUp = {
+    hidden: { opacity: 0, y: 18 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+  };
+
+  const subtleFloat = {
+    hidden: { opacity: 0, y: 6 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.9, ease: 'easeOut' } },
+  };
+
+  // Static content (kept identical to your original text where possible)
+  const skills = {
+    Frontend: ['React.js', 'Next.js', 'TypeScript', 'Tailwind CSS', 'HTML5 & CSS3'],
+    Backend: ['Node.js', 'Express.js', 'Python', 'MongoDB', 'PostgreSQL'],
+    Blockchain: ['Solidity', 'Web3.js', 'Ethereum', 'Smart Contracts', 'DeFi Protocols'],
+    Tools: ['Git & GitHub', 'Docker', 'AWS', 'Vercel', 'Figma'],
+  };
+
+  const experiences = [
+    {
+      title: 'Full Stack Developer Intern',
+      company: 'ByteNexus',
+      period: '2024',
+      desc: 'Developed and maintained production-grade web applications using modern frameworks and collaborated with teams to deliver scalable solutions.',
+    },
+    {
+      title: 'Technical Intern',
+      company: 'Vaishnav Technicals',
+      period: '2024',
+      desc: 'Gained hands-on experience in software development, debugging, and deployment. Contributed to internal tools and automation projects.',
+    },
+  ];
+
+  const projects = [
+    {
+      title: 'BhumiDekho.com',
+      desc:
+        'A modern property listing website that simplifies buying, selling, and renting properties with advanced search, filtering, and clean UI for seamless real estate experiences.',
+      tech: ['PHP', 'MySQL', 'JavaScript', 'jQuery'],
+      href: 'https://bhumidekho.com/',
+    },
+    {
+      title: 'Baguette Club',
+      desc:
+        'A stylish showcase website integrating blockchain features for unique digital collectibles. Built using Next.js, Node.js, Firebase, and Ethereum for a seamless decentralized experience.',
+      tech: ['Next.js', 'Node.js', 'Firebase', 'Ethereum'],
+      href: 'https://www.baguetteclub.wtf/',
+    },
+  ];
+
+  const achievements = [
+    { title: "Smart India Hackathon 2025", desc: "Participated in SIH'25 presenting innovative solutions for real-world challenges." },
+    { title: 'Technical Excellence', desc: 'Recognized for outstanding proficiency in full-stack development and blockchain technologies.' },
+  ];
+
+  // Small helper to render tech chips
+  const TechChip = ({ text }: { text: string }) => (
+    <span className="inline-flex items-center justify-center px-3 py-1 rounded-full text-sm bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 border border-blue-100">
+      {text}
+    </span>
+  );
+
   return (
-    <div className="min-h-screen bg-white text-gray-900">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-sm border-b border-gray-200 z-50">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-blue-600">Shashwat Tripathi</h1>
-          {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-8">
-            {['about', 'skills', 'experience', 'projects', 'achievements', 'contact'].map((section) => (
-              <button
-                key={section}
-                onClick={() => scrollToSection(section)}
-                className="hover:text-blue-600 transition-colors font-medium"
-              >
-                {section.charAt(0).toUpperCase() + section.slice(1)}
-              </button>
-            ))}
-          </div>
-          {/* Mobile Menu Button */}
-          <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
-          </button>
-        </div>
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 mt-2 bg-white">
-            <div className="flex flex-col space-y-2 py-4 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-white via-blue-50 to-blue-100 text-gray-900 antialiased">
+      {/* NAVBAR */}
+      <motion.header
+        initial={{ y: -30, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+        className="fixed inset-x-0 top-0 z-50"
+      >
+        <div className="backdrop-blur-sm bg-white/70 border-b border-gray-200">
+          <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="h-11 w-11 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 shadow-xl flex items-center justify-center">
+                <span className="text-white font-semibold">ST</span>
+              </div>
+              <div>
+                <h1 className="text-lg font-semibold leading-none">Shashwat Tripathi</h1>
+                <p className="text-xs text-gray-500">Full Stack Developer</p>
+              </div>
+            </div>
+
+            <nav className="hidden md:flex items-center gap-8">
               {['about', 'skills', 'experience', 'projects', 'achievements', 'contact'].map((section) => (
-                <button
+                <motion.button
                   key={section}
+                  whileHover={{ y: -3 }}
                   onClick={() => scrollToSection(section)}
-                  className="text-left hover:text-blue-600 transition-colors py-2 font-medium"
+                  className="relative text-sm text-gray-700 hover:text-blue-600 transition-colors"
                 >
                   {section.charAt(0).toUpperCase() + section.slice(1)}
-                </button>
+                  <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-gradient-to-r from-blue-400 to-indigo-500 group-hover:w-full transition-[width] duration-300" />
+                </motion.button>
+              ))}
+            </nav>
+
+            <div className="flex items-center gap-3">
+              <a
+                href="/Shashwat_Tripathi_CV.pdf"
+                download
+                className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-blue-600 text-blue-600 text-sm font-medium hover:bg-blue-50 transition"
+              >
+                Download CV
+              </a>
+
+              <button
+                className="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100"
+                onClick={() => setIsMenuOpen((s) => !s)}
+                aria-label="Toggle menu"
+              >
+                {isMenuOpen ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
+              </button>
+            </div>
+          </div>
+
+          <AnimatePresence>
+            {isMenuOpen && (
+              <motion.nav
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.18 }}
+                className="md:hidden border-t border-gray-200 bg-white"
+              >
+                <div className="px-6 py-3 flex flex-col gap-2">
+                  {['about', 'skills', 'experience', 'projects', 'achievements', 'contact'].map((s) => (
+                    <button key={s} onClick={() => scrollToSection(s)} className="w-full text-left px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50">
+                      {s.charAt(0).toUpperCase() + s.slice(1)}
+                    </button>
+                  ))}
+                </div>
+              </motion.nav>
+            )}
+          </AnimatePresence>
+        </div>
+      </motion.header>
+
+      <main className="pt-28">
+        {/* HERO */}
+        <section className="relative overflow-hidden pt-8 pb-20">
+          <div className="absolute -z-10 left-[-8%] top-[-8%] w-[520px] h-[520px] rounded-full bg-gradient-to-br from-blue-200/40 to-indigo-200/30 blur-3xl" />
+          <div className="absolute -z-10 right-[-6%] bottom-[-6%] w-[420px] h-[420px] rounded-full bg-gradient-to-br from-indigo-100/30 to-blue-100/20 blur-2xl" />
+
+          <motion.div variants={container} initial="hidden" animate="show" className="max-w-5xl mx-auto px-6 text-center">
+            <motion.h1 variants={fadeUp} className="text-5xl md:text-6xl font-extrabold leading-tight tracking-tight text-gray-900">Shashwat Tripathi</motion.h1>
+            <motion.p variants={subtleFloat} className="mt-4 text-xl md:text-2xl text-blue-700 font-medium">Full Stack Developer & Blockchain Enthusiast</motion.p>
+
+            <motion.p variants={fadeUp} className="mt-6 text-gray-600 max-w-2xl mx-auto leading-relaxed">
+              Passionate about crafting efficient, scalable web solutions and exploring the future of blockchain. Currently pursuing B.Tech in Computer Science and building real-world digital products.
+            </motion.p>
+
+            <motion.div variants={fadeUp} className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+              <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }} onClick={() => scrollToSection('projects')} className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium shadow-xl">View My Work</motion.button>
+
+              <motion.a whileHover={{ scale: 1.03 }} href="/Shashwat_Tripathi_CV.pdf" download className="inline-flex items-center justify-center px-6 py-3 rounded-xl border border-gray-200 text-gray-700 font-medium hover:bg-gray-50">Download CV</motion.a>
+            </motion.div>
+
+            {/* subtle action hint */}
+            <motion.div variants={subtleFloat} className="mt-6 text-sm text-gray-500">
+              <span className="inline-flex items-center gap-2">Scroll to explore ↓</span>
+            </motion.div>
+          </motion.div>
+        </section>
+
+        {/* ABOUT */}
+        <motion.section id="about" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="py-16 bg-white">
+          <div className="max-w-6xl mx-auto px-6">
+            <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-center mb-10">About Me</motion.h2>
+            <div className="grid md:grid-cols-2 gap-10 items-center">
+              <motion.div variants={fadeUp} className="space-y-4">
+                <h3 className="text-2xl font-semibold mb-2 text-blue-600">Background</h3>
+                <p className="text-gray-700 leading-relaxed">
+                  I’m a Computer Science undergraduate deeply passionate about full-stack development and blockchain innovation. My journey in technology is fueled by curiosity, creativity, and a commitment to delivering impactful digital solutions.
+                </p>
+                <p className="text-gray-700 leading-relaxed">
+                  I love collaborating on projects that push boundaries and provide real-world value — from scalable web apps to decentralized systems.
+                </p>
+              </motion.div>
+
+              <motion.div variants={fadeUp} className="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl shadow-md border border-gray-100">
+                <h4 className="font-semibold text-lg">Bachelor of Technology</h4>
+                <p className="text-gray-600">Computer Science & Engineering</p>
+                <p className="text-sm text-gray-500 mt-2">Currently Pursuing</p>
+              </motion.div>
+            </div>
+          </div>
+        </motion.section>
+
+        {/* SKILLS */}
+        <motion.section id="skills" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="py-16 bg-gray-50">
+          <div className="max-w-6xl mx-auto px-6">
+            <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-center mb-10">Technical Skills</motion.h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {Object.entries(skills).map(([category, list]) => (
+                <motion.div key={category} variants={fadeUp} className="bg-white p-5 rounded-2xl shadow-md hover:shadow-xl transition">
+                  <h4 className="text-lg font-semibold mb-3 text-blue-600">{category}</h4>
+                  <ul className="space-y-2 text-gray-700">
+                    {(list as string[]).map((skill) => (
+                      <li key={skill} className="flex items-center gap-3">
+                        <span className="h-2 w-2 rounded-full bg-gradient-to-r from-blue-400 to-indigo-500 inline-block" />
+                        <span>{skill}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
               ))}
             </div>
           </div>
-        )}
-      </nav>
+        </motion.section>
 
-      {/* Hero Section */}
-      <section className="pt-28 pb-20 bg-gradient-to-br from-blue-50 to-indigo-100 text-center">
-        <div className="max-w-5xl mx-auto px-4">
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4">Shashwat Tripathi</h1>
-          <p className="text-xl md:text-2xl text-gray-700 mb-6">
-            Full Stack Developer & Blockchain Enthusiast
-          </p>
-          <p className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Passionate about crafting efficient, scalable web solutions and exploring the future of blockchain. 
-            Currently pursuing B.Tech in Computer Science and building real-world digital products.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              onClick={() => scrollToSection('projects')}
-              className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-all font-medium shadow-md"
-            >
-              View My Work
-            </button>
-            <a
-              href="/Shashwat_Tripathi_CV.pdf"
-              download
-              className="border border-blue-600 text-blue-600 px-8 py-3 rounded-lg hover:bg-blue-50 transition-all font-medium"
-            >
-              Download CV
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">About Me</h2>
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h3 className="text-2xl font-semibold mb-4 text-blue-600">Background</h3>
-              <p className="text-gray-700 mb-6 leading-relaxed">
-                I’m a Computer Science undergraduate deeply passionate about full-stack development and blockchain innovation. 
-                My journey in technology is fueled by curiosity, creativity, and a commitment to delivering impactful digital solutions.
-              </p>
-              <p className="text-gray-700 leading-relaxed">
-                I love collaborating on projects that push boundaries and provide real-world value — from scalable web apps to decentralized systems.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-2xl font-semibold mb-4 text-blue-600">Education</h3>
-              <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
-                <h4 className="font-semibold text-lg">Bachelor of Technology</h4>
-                <p className="text-gray-600">Computer Science & Engineering</p>
-                <p className="text-gray-500 text-sm mt-2">Currently Pursuing</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Skills Section */}
-      <section id="skills" className="py-16 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Technical Skills</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { title: 'Frontend', skills: ['React.js', 'Next.js', 'TypeScript', 'Tailwind CSS', 'HTML5 & CSS3'] },
-              { title: 'Backend', skills: ['Node.js', 'Express.js', 'Python', 'MongoDB', 'PostgreSQL'] },
-              { title: 'Blockchain', skills: ['Solidity', 'Web3.js', 'Ethereum', 'Smart Contracts', 'DeFi Protocols'] },
-              { title: 'Tools & Others', skills: ['Git & GitHub', 'Docker', 'AWS', 'Vercel', 'Figma'] },
-            ].map((category) => (
-              <div key={category.title} className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-all">
-                <h3 className="text-xl font-semibold mb-4 text-blue-600">{category.title}</h3>
-                <ul className="space-y-2 text-gray-700">
-                  {category.skills.map((skill) => (
-                    <li key={skill}>{skill}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Experience Section */}
-      <section id="experience" className="py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Experience</h2>
-          <div className="space-y-8">
-            {[
-              {
-                title: 'Full Stack Developer Intern',
-                company: 'ByteNexus',
-                period: '2024',
-                desc: 'Developed and maintained production-grade web applications using modern frameworks and collaborated with teams to deliver scalable solutions.',
-              },
-              {
-                title: 'Technical Intern',
-                company: 'Vaishnav Technicals',
-                period: '2024',
-                desc: 'Gained hands-on experience in software development, debugging, and deployment. Contributed to internal tools and automation projects.',
-              },
-            ].map((exp) => (
-              <div key={exp.title} className="bg-gray-50 p-6 rounded-lg hover:shadow-md transition-all">
-                <div className="flex flex-col md:flex-row justify-between mb-3">
-                  <div>
-                    <h3 className="text-xl font-semibold text-blue-600">{exp.title}</h3>
-                    <p className="text-gray-600">{exp.company}</p>
+        {/* EXPERIENCE */}
+        <motion.section id="experience" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="py-16 bg-white">
+          <div className="max-w-4xl mx-auto px-6">
+            <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-center mb-8">Experience</motion.h2>
+            <div className="space-y-6">
+              {experiences.map((exp) => (
+                <motion.article key={exp.title} variants={fadeUp} className="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl shadow-md hover:shadow-xl transition">
+                  <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3">
+                    <div>
+                      <h3 className="text-lg font-semibold text-blue-600">{exp.title}</h3>
+                      <p className="text-gray-600">{exp.company}</p>
+                    </div>
+                    <div className="text-gray-500 text-sm">{exp.period}</div>
                   </div>
-                  <span className="text-gray-500 text-sm mt-2 md:mt-0">{exp.period}</span>
-                </div>
-                <p className="text-gray-700 leading-relaxed">{exp.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Projects Section */}
-      <section id="projects" className="py-16 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Featured Projects</h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* BhumiDekho.com */}
-            <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-all">
-              <h3 className="text-2xl font-semibold mb-4 text-blue-600">BhumiDekho.com</h3>
-              <p className="text-gray-700 mb-4 leading-relaxed">
-                A modern property listing website that simplifies buying, selling, and renting properties 
-                with advanced search, filtering, and clean UI for seamless real estate experiences.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {['PHP', 'MySQL', 'JavaScript', 'jQuery'].map((tech) => (
-                  <span key={tech} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              <a
-                href="https://bhumidekho.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-800 font-medium"
-              >
-                Visit Project →
-              </a>
-            </div>
-
-            {/* Baguette Club */}
-            <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-all">
-              <h3 className="text-2xl font-semibold mb-4 text-blue-600">Baguette Club</h3>
-              <p className="text-gray-700 mb-4 leading-relaxed">
-                A stylish showcase website integrating blockchain features for unique digital collectibles. 
-                Built using Next.js, Node.js, Firebase, and Ethereum for a seamless decentralized experience.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {['Next.js', 'Node.js', 'Firebase', 'Ethereum'].map((tech) => (
-                  <span key={tech} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              <a
-                href="https://www.baguetteclub.wtf/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-800 font-medium"
-              >
-                Visit Project →
-              </a>
+                  <p className="text-gray-700 mt-3">{exp.desc}</p>
+                </motion.article>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </motion.section>
 
-      {/* Achievements Section */}
-      <section id="achievements" className="py-16 bg-white">
-        <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Achievements</h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            {[
-              { title: 'Smart India Hackathon 2025', desc: "Participated in SIH'25 presenting innovative solutions for real-world challenges." },
-              { title: 'Technical Excellence', desc: 'Recognized for outstanding proficiency in full-stack development and blockchain technologies.' },
-            ].map((item) => (
-              <div key={item.title} className="bg-gradient-to-br from-blue-50 to-indigo-100 p-6 rounded-lg hover:shadow-md transition-all">
-                <h3 className="text-xl font-semibold mb-2 text-blue-600">{item.title}</h3>
-                <p className="text-gray-700">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="py-16 bg-gray-50">
-        <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Get In Touch</h2>
-          <div className="grid md:grid-cols-2 gap-12">
-            <div>
-              <h3 className="text-2xl font-semibold mb-6 text-blue-600">Let’s Connect</h3>
-              <p className="text-gray-700 mb-6 leading-relaxed">
-                Open to collaborations, new opportunities, or even just a chat about technology and innovation. 
-                Feel free to reach out — I’d love to connect!
-              </p>
-              <div className="space-y-4">
-                <p className="flex items-center space-x-3">
-                  <span className="text-blue-600 text-lg">📧</span>
-                  <a href="mailto:shashwat.tripathi@email.com" className="text-gray-700 hover:text-blue-600">
-                    shashwat.tripathi@email.com
-                  </a>
-                </p>
-                <p className="flex items-center space-x-3">
-                  <span className="text-blue-600 text-lg">💼</span>
-                  <a href="https://linkedin.com/in/shashwat-tripathi" target="_blank" className="text-gray-700 hover:text-blue-600">
-                    LinkedIn Profile
-                  </a>
-                </p>
-                <p className="flex items-center space-x-3">
-                  <span className="text-blue-600 text-lg">🐙</span>
-                  <a href="https://github.com/shashwat-tripathi" target="_blank" className="text-gray-700 hover:text-blue-600">
-                    GitHub Profile
-                  </a>
-                </p>
-              </div>
-            </div>
-
-            <div>
-              <form className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                    placeholder="Your Name"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                    placeholder="your.email@example.com"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    rows={4}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                    placeholder="Your message..."
-                  ></textarea>
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-all font-medium shadow-md"
-                >
-                  Send Message
-                </button>
-              </form>
+        {/* PROJECTS */}
+        <motion.section id="projects" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="py-16 bg-gray-50">
+          <div className="max-w-6xl mx-auto px-6">
+            <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-center mb-10">Featured Projects</motion.h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              {projects.map((p) => (
+                <motion.div key={p.title} variants={fadeUp} className="bg-white p-6 rounded-2xl shadow-md hover:shadow-2xl transition">
+                  <h3 className="text-2xl font-semibold mb-3 text-blue-600">{p.title}</h3>
+                  <p className="text-gray-700 mb-4 leading-relaxed">{p.desc}</p>
+                  <div className="flex flex-wrap gap-2 mb-4">{p.tech.map((t) => (<TechChip key={t} text={t} />))}</div>
+                  <a href={p.href} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-medium">Visit Project →</a>
+                </motion.div>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </motion.section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-8">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <h3 className="text-xl font-semibold mb-2">Shashwat Tripathi</h3>
-          <p className="text-gray-400 mb-4">Full Stack Developer & Blockchain Enthusiast</p>
-          <div className="flex justify-center space-x-6">
-            <a href="https://linkedin.com/in/shashwat-tripathi" target="_blank" className="text-gray-400 hover:text-white">
-              LinkedIn
-            </a>
-            <a href="https://github.com/shashwat-tripathi" target="_blank" className="text-gray-400 hover:text-white">
-              GitHub
-            </a>
-            <a href="#" className="text-gray-400 hover:text-white">
-              Twitter
-            </a>
+        {/* ACHIEVEMENTS */}
+        <motion.section id="achievements" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="py-16 bg-white">
+          <div className="max-w-5xl mx-auto px-6">
+            <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-center mb-10">Achievements</motion.h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              {achievements.map((a) => (
+                <motion.div key={a.title} variants={fadeUp} className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-2xl shadow-md hover:shadow-xl transition">
+                  <h3 className="text-lg font-semibold mb-2 text-blue-600">{a.title}</h3>
+                  <p className="text-gray-700">{a.desc}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
-          <div className="mt-6 border-t border-gray-800 pt-6 text-gray-500 text-sm">
-            © 2025 Shashwat Tripathi. All rights reserved.
+        </motion.section>
+
+        {/* CONTACT */}
+        <motion.section id="contact" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="py-16 bg-gray-50">
+          <div className="max-w-5xl mx-auto px-6">
+            <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-center mb-10">Get In Touch</motion.h2>
+            <div className="grid md:grid-cols-2 gap-12">
+              <motion.div variants={fadeUp}>
+                <h3 className="text-2xl font-semibold mb-4 text-blue-600">Let’s Connect</h3>
+                <p className="text-gray-700 mb-6 leading-relaxed">Open to collaborations, new opportunities, or even just a chat about technology and innovation. Feel free to reach out — I’d love to connect!</p>
+                <div className="space-y-4">
+                  <p className="flex items-center space-x-3"><span className="text-blue-600 text-lg">📧</span><a href="mailto:shashwat.tripathi@email.com" className="text-gray-700 hover:text-blue-600">shashwat.tripathi@email.com</a></p>
+                  <p className="flex items-center space-x-3"><span className="text-blue-600 text-lg">💼</span><a href="https://linkedin.com/in/shashwat-tripathi" target="_blank" rel="noreferrer" className="text-gray-700 hover:text-blue-600">LinkedIn Profile</a></p>
+                  <p className="flex items-center space-x-3"><span className="text-blue-600 text-lg">🐙</span><a href="https://github.com/shashwat-tripathi" target="_blank" rel="noreferrer" className="text-gray-700 hover:text-blue-600">GitHub Profile</a></p>
+                </div>
+              </motion.div>
+
+              <motion.div variants={fadeUp}>
+                <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                    <input id="name" type="text" placeholder="Your Name" className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-200" />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                    <input id="email" type="email" placeholder="your.email@example.com" className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-200" />
+                  </div>
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                    <textarea id="message" rows={4} placeholder="Your message..." className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-200" />
+                  </div>
+                  <button type="submit" className="w-full inline-flex items-center justify-center px-4 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium hover:scale-[1.02] transition">Send Message</button>
+                </form>
+              </motion.div>
+            </div>
           </div>
-        </div>
-      </footer>
+        </motion.section>
+
+        {/* FOOTER */}
+        <motion.footer initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="bg-gradient-to-t from-blue-900 via-blue-800 to-blue-700 text-white py-10 mt-8">
+          <div className="max-w-6xl mx-auto px-6 text-center">
+            <h3 className="text-lg font-semibold mb-2">Shashwat Tripathi</h3>
+            <p className="text-blue-100 mb-6">Full Stack Developer & Blockchain Enthusiast</p>
+            <div className="flex justify-center gap-6">
+              <a href="https://linkedin.com/in/shashwat-tripathi" target="_blank" rel="noreferrer" className="text-blue-100 hover:text-white">LinkedIn</a>
+              <a href="https://github.com/shashwat-tripathi" target="_blank" rel="noreferrer" className="text-blue-100 hover:text-white">GitHub</a>
+              <a href="#" className="text-blue-100 hover:text-white">Twitter</a>
+            </div>
+            <div className="mt-6 text-sm text-blue-200">© 2025 Shashwat Tripathi. All rights reserved.</div>
+          </div>
+        </motion.footer>
+      </main>
     </div>
   );
 }
