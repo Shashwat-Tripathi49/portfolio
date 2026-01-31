@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { motion, AnimatePresence, Transition, Variants } from 'framer-motion';
+import BackgroundOrbs from '@/components/BackgroundOrbs';
 
 export default function Home() {
 
@@ -27,34 +28,34 @@ export default function Home() {
   };
 
   const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { 
-      duration: 0.6, 
-      ease: [0.25, 0.1, 0.25, 1] // cubic bezier equivalent to "easeOut"
-    } as Transition,
-  },
-};
+    hidden: { opacity: 0, y: 20 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.25, 0.1, 0.25, 1] // cubic bezier equivalent to "easeOut"
+      } as Transition,
+    },
+  };
 
- const subtleFloat: Variants = {
-  hidden: { opacity: 0, y: 10 },
-  show: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { 
-      duration: 0.8, 
-      ease: [0.42, 0, 0.58, 1] // cubic-bezier equivalent to easeInOut
-    } as Transition,
-  },
-};
+  const subtleFloat: Variants = {
+    hidden: { opacity: 0, y: 10 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.42, 0, 0.58, 1] // cubic-bezier equivalent to easeInOut
+      } as Transition,
+    },
+  };
 
   // Static content (kept identical to your original text where possible)
   const skills = {
     Frontend: ['React.js', 'Next.js', 'TypeScript', 'Tailwind CSS', 'HTML5 & CSS3'],
     Backend: ['Node.js', 'Express.js', 'Python', 'MongoDB', 'PostgreSQL'],
-    Blockchain: ['Solidity', 'Web3.js', 'Ethereum', 'Smart Contracts'],
+    'Blockchain & Web3': ['Web3 Fundamentals', 'Smart Contract Basics', 'Ethereum Concepts', 'Cryptocurrency Understanding'],
     Tools: ['Git & GitHub', 'Docker', 'AWS', 'Vercel', 'Figma'],
   };
 
@@ -97,13 +98,14 @@ export default function Home() {
 
   // Small helper to render tech chips
   const TechChip = ({ text }: { text: string }) => (
-    <span className="inline-flex items-center justify-center px-3 py-1 rounded-full text-sm bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 border border-blue-100">
+    <span className="inline-flex items-center justify-center px-3 py-1 rounded-full text-sm bg-blue-500/10 text-blue-300 border border-blue-500/20 backdrop-blur-sm">
       {text}
     </span>
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-blue-50 to-blue-100 text-gray-900 antialiased">
+    <div className="min-h-screen text-gray-100 antialiased selection:bg-cyan-500/30">
+      <BackgroundOrbs />
       {/* NAVBAR */}
       <motion.header
         initial={{ y: -30, opacity: 0 }}
@@ -111,15 +113,15 @@ export default function Home() {
         transition={{ duration: 0.6, ease: 'easeOut' }}
         className="fixed inset-x-0 top-0 z-50"
       >
-        <div className="backdrop-blur-sm bg-white/70 border-b border-gray-200">
+        <div className="backdrop-blur-md bg-black/30 border-b border-white/10">
           <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="h-11 w-11 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 shadow-xl flex items-center justify-center">
-                <span className="text-white font-semibold">ST</span>
+              <div className="h-11 w-11 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 shadow-lg shadow-blue-500/20 flex items-center justify-center">
+                <span className="text-white font-bold text-lg">ST</span>
               </div>
               <div>
-                <h1 className="text-lg font-semibold leading-none">Shashwat Tripathi</h1>
-                <p className="text-xs text-gray-500">Full Stack Developer</p>
+                <h1 className="text-lg font-bold leading-none tracking-tight">Shashwat Tripathi</h1>
+                <p className="text-xs text-gray-400">Full Stack Developer</p>
               </div>
             </div>
 
@@ -127,27 +129,27 @@ export default function Home() {
               {['about', 'skills', 'experience', 'projects', 'achievements', 'contact'].map((section) => (
                 <motion.button
                   key={section}
-                  whileHover={{ y: -3 }}
+                  whileHover={{ y: -2 }}
                   onClick={() => scrollToSection(section)}
-                  className="relative text-sm text-gray-700 hover:text-blue-600 transition-colors"
+                  className="relative text-sm font-medium text-gray-300 hover:text-white transition-colors"
                 >
                   {section.charAt(0).toUpperCase() + section.slice(1)}
-                  <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-gradient-to-r from-blue-400 to-indigo-500 group-hover:w-full transition-[width] duration-300" />
+                  <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-[width] duration-300" />
                 </motion.button>
               ))}
             </nav>
 
             <div className="flex items-center gap-3">
               <a
-                href="/Shashwat_Tripathi_CV.pdf"
+                href="/shashwat.resume.pdf"
                 download
-                className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-blue-600 text-blue-600 text-sm font-medium hover:bg-blue-50 transition"
+                className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-gray-200 text-sm font-medium hover:bg-white/10 hover:border-white/20 transition-all backdrop-blur-sm"
               >
                 Download CV
               </a>
 
               <button
-                className="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100"
+                className="md:hidden p-2 rounded-md text-gray-300 hover:bg-white/10"
                 onClick={() => setIsMenuOpen((s) => !s)}
                 aria-label="Toggle menu"
               >
@@ -163,11 +165,11 @@ export default function Home() {
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.18 }}
-                className="md:hidden border-t border-gray-200 bg-white"
+                className="md:hidden border-t border-white/10 bg-black/90 backdrop-blur-xl"
               >
                 <div className="px-6 py-3 flex flex-col gap-2">
                   {['about', 'skills', 'experience', 'projects', 'achievements', 'contact'].map((s) => (
-                    <button key={s} onClick={() => scrollToSection(s)} className="w-full text-left px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50">
+                    <button key={s} onClick={() => scrollToSection(s)} className="w-full text-left px-3 py-2 rounded-md text-gray-300 hover:bg-white/10">
                       {s.charAt(0).toUpperCase() + s.slice(1)}
                     </button>
                   ))}
@@ -180,67 +182,75 @@ export default function Home() {
 
       <main className="pt-28">
         {/* HERO */}
-        <section className="relative overflow-hidden pt-8 pb-20">
-          <div className="absolute -z-10 left-[-8%] top-[-8%] w-[520px] h-[520px] rounded-full bg-gradient-to-br from-blue-200/40 to-indigo-200/30 blur-3xl" />
-          <div className="absolute -z-10 right-[-6%] bottom-[-6%] w-[420px] h-[420px] rounded-full bg-gradient-to-br from-indigo-100/30 to-blue-100/20 blur-2xl" />
+        <section className="relative pt-12 pb-24 md:pt-20 md:pb-32">
+          {/* Decorative glowing gradient behind text */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none" />
 
-          <motion.div variants={container} initial="hidden" animate="show" className="max-w-5xl mx-auto px-6 text-center">
-            <motion.h1 variants={fadeUp} className="text-5xl md:text-6xl font-extrabold leading-tight tracking-tight text-gray-900">Shashwat Tripathi</motion.h1>
-            <motion.p variants={subtleFloat} className="mt-4 text-xl md:text-2xl text-blue-700 font-medium">Full Stack Developer & Blockchain Enthusiast</motion.p>
-
-            <motion.p variants={fadeUp} className="mt-6 text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              Passionate about crafting efficient, scalable web solutions and exploring the future of blockchain. Currently pursuing B.Tech in Computer Science and building real-world digital products.
+          <motion.div variants={container} initial="hidden" animate="show" className="relative max-w-5xl mx-auto px-6 text-center z-10">
+            <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl font-extrabold leading-tight tracking-tight text-white mb-6">
+              Shashwat Tripathi
+            </motion.h1>
+            <motion.p variants={subtleFloat} className="text-xl md:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 font-medium mb-8">
+              Full Stack Developer
             </motion.p>
 
-            <motion.div variants={fadeUp} className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }} onClick={() => scrollToSection('projects')} className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium shadow-xl">View My Work</motion.button>
+            <motion.p variants={fadeUp} className="text-gray-400 max-w-2xl mx-auto leading-relaxed text-lg mb-10">
+              Passionate about crafting efficient, scalable web solutions. Currently pursuing B.Tech in Computer Science and building real-world digital products.
+            </motion.p>
 
-              <motion.a whileHover={{ scale: 1.03 }} href="/Shashwat_Tripathi_CV.pdf" download className="inline-flex items-center justify-center px-6 py-3 rounded-xl border border-gray-200 text-gray-700 font-medium hover:bg-gray-50">Download CV</motion.a>
+            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center">
+              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => scrollToSection('projects')} className="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-semibold shadow-lg shadow-blue-900/20 hover:shadow-cyan-500/20 transition-all">
+                View My Work
+              </motion.button>
+
+              <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/shashwat.resume.pdf" download className="inline-flex items-center justify-center px-8 py-4 rounded-xl border border-white/10 bg-white/5 text-white font-medium hover:bg-white/10 backdrop-blur-sm transition-all">
+                Download CV
+              </motion.a>
             </motion.div>
 
             {/* subtle action hint */}
-            <motion.div variants={subtleFloat} className="mt-6 text-sm text-gray-500">
+            <motion.div variants={subtleFloat} className="mt-16 text-sm text-gray-500 animate-pulse">
               <span className="inline-flex items-center gap-2">Scroll to explore ↓</span>
             </motion.div>
           </motion.div>
         </section>
 
         {/* ABOUT */}
-        <motion.section id="about" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="py-16 bg-white">
+        <motion.section id="about" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="py-20 relative">
           <div className="max-w-6xl mx-auto px-6">
-            <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-center mb-10">About Me</motion.h2>
-            <div className="grid md:grid-cols-2 gap-10 items-center">
-              <motion.div variants={fadeUp} className="space-y-4">
-                <h3 className="text-2xl font-semibold mb-2 text-blue-600">Background</h3>
-                <p className="text-gray-700 leading-relaxed">
-                  I’m a Computer Science undergraduate deeply passionate about full-stack development and blockchain innovation. My journey in technology is fueled by curiosity, creativity, and a commitment to delivering impactful digital solutions.
+            <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">About Me</motion.h2>
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <motion.div variants={fadeUp} className="space-y-6">
+                <h3 className="text-2xl font-semibold text-cyan-400">Background</h3>
+                <p className="text-gray-300 leading-relaxed text-lg">
+                  I’m a Computer Science undergraduate deeply passionate about full-stack development. My journey in technology is fueled by curiosity, creativity, and a commitment to delivering impactful digital solutions.
                 </p>
-                <p className="text-gray-700 leading-relaxed">
-                  I love collaborating on projects that push boundaries and provide real-world value — from scalable web apps to decentralized systems.
+                <p className="text-gray-300 leading-relaxed text-lg">
+                  I love collaborating on projects that push boundaries and provide real-world value — from scalable web apps to seamless user experiences.
                 </p>
               </motion.div>
 
-              <motion.div variants={fadeUp} className="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl shadow-md border border-gray-100">
-                <h4 className="font-semibold text-lg">Bachelor of Technology</h4>
-                <p className="text-gray-600">Computer Science & Engineering</p>
-                <p className="text-sm text-gray-500 mt-2">Currently Pursuing</p>
+              <motion.div variants={fadeUp} className="bg-white/5 backdrop-blur-md p-8 rounded-3xl border border-white/10 shadow-xl">
+                <h4 className="font-semibold text-xl text-white mb-2">Bachelor of Technology</h4>
+                <p className="text-cyan-400">Computer Science & Engineering</p>
+                <p className="text-sm text-gray-500 mt-4">Currently Pursuing</p>
               </motion.div>
             </div>
           </div>
         </motion.section>
 
         {/* SKILLS */}
-        <motion.section id="skills" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="py-16 bg-gray-50">
+        <motion.section id="skills" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="py-20 bg-black/20">
           <div className="max-w-6xl mx-auto px-6">
-            <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-center mb-10">Technical Skills</motion.h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Technical Skills</motion.h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {Object.entries(skills).map(([category, list]) => (
-                <motion.div key={category} variants={fadeUp} className="bg-white p-5 rounded-2xl shadow-md hover:shadow-xl transition">
-                  <h4 className="text-lg font-semibold mb-3 text-blue-600">{category}</h4>
-                  <ul className="space-y-2 text-gray-700">
+                <motion.div key={category} variants={fadeUp} className="bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/5 hover:border-cyan-500/30 transition-colors shadow-lg hover:shadow-cyan-500/10">
+                  <h4 className="text-xl font-semibold mb-6 text-cyan-400">{category}</h4>
+                  <ul className="space-y-3 text-gray-300">
                     {(list as string[]).map((skill) => (
                       <li key={skill} className="flex items-center gap-3">
-                        <span className="h-2 w-2 rounded-full bg-gradient-to-r from-blue-400 to-indigo-500 inline-block" />
+                        <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.5)]" />
                         <span>{skill}</span>
                       </li>
                     ))}
@@ -252,20 +262,20 @@ export default function Home() {
         </motion.section>
 
         {/* EXPERIENCE */}
-        <motion.section id="experience" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="py-16 bg-white">
+        <motion.section id="experience" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="py-20">
           <div className="max-w-4xl mx-auto px-6">
-            <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-center mb-8">Experience</motion.h2>
+            <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Experience</motion.h2>
             <div className="space-y-6">
               {experiences.map((exp) => (
-                <motion.article key={exp.title} variants={fadeUp} className="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl shadow-md hover:shadow-xl transition">
-                  <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3">
+                <motion.article key={exp.title} variants={fadeUp} className="bg-white/5 backdrop-blur-md p-8 rounded-3xl border border-white/10 hover:border-cyan-500/30 transition-all group">
+                  <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4">
                     <div>
-                      <h3 className="text-lg font-semibold text-blue-600">{exp.title}</h3>
-                      <p className="text-gray-600">{exp.company}</p>
+                      <h3 className="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">{exp.title}</h3>
+                      <p className="text-gray-400 font-medium">{exp.company}</p>
                     </div>
-                    <div className="text-gray-500 text-sm">{exp.period}</div>
+                    <div className="text-gray-500 text-sm font-mono bg-white/5 px-3 py-1 rounded-full">{exp.period}</div>
                   </div>
-                  <p className="text-gray-700 mt-3">{exp.desc}</p>
+                  <p className="text-gray-300 leading-relaxed">{exp.desc}</p>
                 </motion.article>
               ))}
             </div>
@@ -273,16 +283,18 @@ export default function Home() {
         </motion.section>
 
         {/* PROJECTS */}
-        <motion.section id="projects" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="py-16 bg-gray-50">
+        <motion.section id="projects" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="py-20 bg-black/20">
           <div className="max-w-6xl mx-auto px-6">
-            <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-center mb-10">Featured Projects</motion.h2>
-            <div className="grid md:grid-cols-2 gap-6">
+            <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Featured Projects</motion.h2>
+            <div className="grid md:grid-cols-2 gap-8">
               {projects.map((p) => (
-                <motion.div key={p.title} variants={fadeUp} className="bg-white p-6 rounded-2xl shadow-md hover:shadow-2xl transition">
-                  <h3 className="text-2xl font-semibold mb-3 text-blue-600">{p.title}</h3>
-                  <p className="text-gray-700 mb-4 leading-relaxed">{p.desc}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">{p.tech.map((t) => (<TechChip key={t} text={t} />))}</div>
-                  <a href={p.href} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-medium">Visit Project →</a>
+                <motion.div key={p.title} variants={fadeUp} className="bg-white/5 backdrop-blur-md p-8 rounded-3xl border border-white/10 hover:border-cyan-500/30 transition-all hover:-translate-y-1 group">
+                  <h3 className="text-2xl font-bold mb-3 text-white group-hover:text-cyan-400 transition-colors">{p.title}</h3>
+                  <p className="text-gray-400 mb-6 leading-relaxed">{p.desc}</p>
+                  <div className="flex flex-wrap gap-2 mb-6">{p.tech.map((t) => (<TechChip key={t} text={t} />))}</div>
+                  <a href={p.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-medium transition-colors">
+                    Visit Project <span className="text-lg">→</span>
+                  </a>
                 </motion.div>
               ))}
             </div>
@@ -290,14 +302,14 @@ export default function Home() {
         </motion.section>
 
         {/* ACHIEVEMENTS */}
-        <motion.section id="achievements" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="py-16 bg-white">
+        <motion.section id="achievements" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="py-20">
           <div className="max-w-5xl mx-auto px-6">
-            <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-center mb-10">Achievements</motion.h2>
+            <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Achievements</motion.h2>
             <div className="grid md:grid-cols-2 gap-6">
               {achievements.map((a) => (
-                <motion.div key={a.title} variants={fadeUp} className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-2xl shadow-md hover:shadow-xl transition">
-                  <h3 className="text-lg font-semibold mb-2 text-blue-600">{a.title}</h3>
-                  <p className="text-gray-700">{a.desc}</p>
+                <motion.div key={a.title} variants={fadeUp} className="bg-gradient-to-br from-white/5 to-white/0 p-8 rounded-3xl border border-white/10 hover:border-cyan-500/30 transition-all">
+                  <h3 className="text-lg font-bold mb-3 text-cyan-400">{a.title}</h3>
+                  <p className="text-gray-300">{a.desc}</p>
                 </motion.div>
               ))}
             </div>
@@ -305,35 +317,35 @@ export default function Home() {
         </motion.section>
 
         {/* CONTACT */}
-        <motion.section id="contact" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="py-16 bg-gray-50">
+        <motion.section id="contact" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} className="py-24 bg-black/20">
           <div className="max-w-5xl mx-auto px-6">
-            <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-center mb-10">Get In Touch</motion.h2>
+            <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-center mb-16 text-white">Get In Touch</motion.h2>
             <div className="grid md:grid-cols-2 gap-12">
               <motion.div variants={fadeUp}>
-                <h3 className="text-2xl font-semibold mb-4 text-blue-600">Let’s Connect</h3>
-                <p className="text-gray-700 mb-6 leading-relaxed">Open to collaborations, new opportunities, or even just a chat about technology and innovation. Feel free to reach out — I’d love to connect!</p>
-                <div className="space-y-4">
-                  <p className="flex items-center space-x-3"><span className="text-blue-600 text-lg">📧</span><a href="mailto:shashwatt49@gmail.com" className="text-gray-700 hover:text-blue-600">shashwatt49@gmail.com</a></p>
-                  <p className="flex items-center space-x-3"><span className="text-blue-600 text-lg">💼</span><a href="https://www.linkedin.com/in/shashwat-tripathi-41a8a9298" target="_blank" rel="noreferrer" className="text-gray-700 hover:text-blue-600">LinkedIn Profile</a></p>
-                  <p className="flex items-center space-x-3"><span className="text-blue-600 text-lg">🐙</span><a href="https://github.com/Shashwat-Tripathi49" target="_blank" rel="noreferrer" className="text-gray-700 hover:text-blue-600">GitHub Profile</a></p>
+                <h3 className="text-2xl font-semibold mb-4 text-cyan-400">Let’s Connect</h3>
+                <p className="text-gray-300 mb-8 leading-relaxed">Open to collaborations, new opportunities, or even just a chat about technology. Feel free to reach out — I’d love to connect!</p>
+                <div className="space-y-6">
+                  <p className="flex items-center space-x-4"><span className="text-cyan-400 text-2xl">📧</span><a href="mailto:shashwatt49@gmail.com" className="text-gray-300 hover:text-cyan-400 transition-colors">shashwatt49@gmail.com</a></p>
+                  <p className="flex items-center space-x-4"><span className="text-cyan-400 text-2xl">💼</span><a href="https://www.linkedin.com/in/shashwat-tripathi-41a8a9298" target="_blank" rel="noreferrer" className="text-gray-300 hover:text-cyan-400 transition-colors">LinkedIn Profile</a></p>
+                  <p className="flex items-center space-x-4"><span className="text-cyan-400 text-2xl">🐙</span><a href="https://github.com/Shashwat-Tripathi49" target="_blank" rel="noreferrer" className="text-gray-300 hover:text-cyan-400 transition-colors">GitHub Profile</a></p>
                 </div>
               </motion.div>
 
               <motion.div variants={fadeUp}>
                 <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">Name</label>
-                    <input id="name" type="text" placeholder="Your Name" className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-200" />
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-400 mb-2">Name</label>
+                    <input id="name" type="text" placeholder="Your Name" className="w-full px-4 py-3 bg-white/5 border border-white/10 text-white rounded-xl focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all placeholder:text-gray-600" />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                    <input id="email" type="email" placeholder="your.email@example.com" className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-200" />
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-2">Email</label>
+                    <input id="email" type="email" placeholder="your.email@example.com" className="w-full px-4 py-3 bg-white/5 border border-white/10 text-white rounded-xl focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all placeholder:text-gray-600" />
                   </div>
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">Message</label>
-                    <textarea id="message" rows={4} placeholder="Your message..." className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-200" />
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-400 mb-2">Message</label>
+                    <textarea id="message" rows={4} placeholder="Your message..." className="w-full px-4 py-3 bg-white/5 border border-white/10 text-white rounded-xl focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all placeholder:text-gray-600" />
                   </div>
-                  <button type="submit" className="w-full inline-flex items-center justify-center px-4 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium hover:scale-[1.02] transition">Send Message</button>
+                  <button type="submit" className="w-full inline-flex items-center justify-center px-6 py-4 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-medium hover:shadow-lg hover:shadow-cyan-500/20 active:scale-[0.98] transition-all">Send Message</button>
                 </form>
               </motion.div>
             </div>
@@ -341,16 +353,16 @@ export default function Home() {
         </motion.section>
 
         {/* FOOTER */}
-        <motion.footer initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="bg-gradient-to-t from-blue-900 via-blue-800 to-blue-700 text-white py-10 mt-8">
+        <motion.footer initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="border-t border-white/10 bg-black/40 text-white py-12 mt-12 backdrop-blur-lg">
           <div className="max-w-6xl mx-auto px-6 text-center">
-            <h3 className="text-lg font-semibold mb-2">Shashwat Tripathi</h3>
-            <p className="text-blue-100 mb-6">Full Stack Developer & Blockchain Enthusiast</p>
-            <div className="flex justify-center gap-6">
-              <a href="https://linkedin.com/in/shashwat-tripathi" target="_blank" rel="noreferrer" className="text-blue-100 hover:text-white">LinkedIn</a>
-              <a href="https://github.com/shashwat-tripathi" target="_blank" rel="noreferrer" className="text-blue-100 hover:text-white">GitHub</a>
-              <a href="#" className="text-blue-100 hover:text-white">Twitter</a>
+            <h3 className="text-xl font-bold mb-2">Shashwat Tripathi</h3>
+            <p className="text-gray-400 mb-8">Full Stack Developer</p>
+            <div className="flex justify-center gap-8">
+              <a href="https://linkedin.com/in/shashwat-tripathi" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-cyan-400 transition-colors">LinkedIn</a>
+              <a href="https://github.com/shashwat-tripathi" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-cyan-400 transition-colors">GitHub</a>
+              <a href="#" className="text-gray-400 hover:text-cyan-400 transition-colors">Twitter</a>
             </div>
-            <div className="mt-6 text-sm text-blue-200">© 2025 Shashwat Tripathi. All rights reserved.</div>
+            <div className="mt-8 text-sm text-gray-600">© 2025 Shashwat Tripathi. All rights reserved.</div>
           </div>
         </motion.footer>
       </main>
